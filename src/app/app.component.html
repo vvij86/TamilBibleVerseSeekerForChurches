@@ -41,11 +41,13 @@
   </p-dropdown>
 
   <p-inputNumber
-  #chapterInput
+    #chapterInput
     placeholder="Chapter"
+    [pAutoFocus]="true" 
     [(ngModel)]="chapterNumber"
     (keydown.enter)="submitVerse()">
   </p-inputNumber>
+
 
   <p-inputNumber
     placeholder="Verse"

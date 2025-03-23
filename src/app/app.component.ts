@@ -6,9 +6,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumber } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { SplitterModule } from 'primeng/splitter';
 import { ListboxModule } from 'primeng/listbox';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 
 @Component({
@@ -21,14 +23,15 @@ import { ListboxModule } from 'primeng/listbox';
     InputNumberModule,
     ButtonModule,
     SplitterModule,
-    ListboxModule
+    ListboxModule,
+    AutoFocusModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit,AfterViewChecked  {
   @ViewChild('fullscreenContainer') fullscreenContainer!: ElementRef;
-  @ViewChild('chapterInput') chapterInputRef!: ElementRef;
+  @ViewChild('chapterInput') chapterInputRef!: InputNumber;
   @ViewChild('verseText') verseTextRef!: ElementRef;
 
   currentFontSize = 6; // initial large font size in vh units
@@ -81,6 +84,14 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     
   }
 
+  focusChapterInput() {
+    const inputElement = this.chapterInputRef.el.nativeElement.querySelector('input');
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }
+
+  
   ngAfterViewChecked(): void {
     if (this.fullscreenMode && !this.adjustingFontSize) {
       this.adjustFontSizeToFit();
@@ -146,8 +157,9 @@ export class AppComponent implements OnInit,AfterViewChecked  {
       this.bookName = selected.label;
     }
     setTimeout(() => {
-      if (this.chapterInputRef?.nativeElement) {
-        this.chapterInputRef.nativeElement.focus();
+      const inputEl = this.chapterInputRef?.input?.nativeElement;
+      if (inputEl) {
+        inputEl.focus();
       }
     }, 0);
   }
