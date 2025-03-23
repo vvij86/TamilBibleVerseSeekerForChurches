@@ -1,0 +1,120 @@
+/* HEADER STYLING */
+.app-header {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    height: 54px;
+  }
+  
+  .verse-form {
+    // Additional styling if needed
+  }
+  
+  /* Navigation Tabs, Title, and Language Dropdown Container */
+  .nav-lang-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+  
+    .header-nav {
+      display: flex;
+      flex-shrink: 0;
+  
+      a.nav-tab {
+        text-decoration: none;
+        color: #333;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        margin-right: 0.5rem;
+  
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+    }
+  
+    .title-container-inline {
+      flex-grow: 1;
+      text-align: center;
+  
+      .app-title {
+        font-size: 1.4rem;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  
+    p-dropdown {
+      flex-shrink: 0;
+    }
+  }
+  
+  /* Override default listbox container height */
+  :host ::ng-deep .p-listbox-list-container {
+    max-height: 34rem !important;
+  }
+  
+  // :host ::ng-deep div {
+  //   border: none !important;
+  // }
+  
+  :host ::ng-deep .p-splitter .p-component .p-splitter-horizontal {
+    height: 560px !important;
+  }
+  
+  ::ng-deep .custom-listbox .p-listbox {
+    font-size: 0.75rem;
+  }
+  
+  :host ::ng-deep p-listbox {
+    width: 100% !important;
+  }
+  
+  .fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    z-index: 999;
+    border: 2px solid #ddd;
+    padding: 1rem;
+    box-sizing: border-box;
+  
+    .verse-text {
+      flex: 0 0 95%;
+      width: 100%;
+      overflow: hidden; // explicitly prevent scrollbars
+      padding: 0.5rem;
+      box-sizing: border-box;
+    }
+  
+    .verse-info {
+      flex: 0 0 5%;
+      width: 100%;
+      font-size: 1.5rem;
+      color: #555;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
+      box-sizing: border-box;
+    }
+  }
+  
+  
+  

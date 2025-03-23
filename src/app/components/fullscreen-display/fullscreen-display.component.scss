@@ -1,0 +1,26 @@
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 999;
+
+  .verse-text {
+    font-size: calc(3vw + 3vh);
+    padding: 1rem;
+  }
+
+  .verse-info {
+    position: absolute;
+    bottom: 1rem;
+    font-size: 1.5rem;
+    color: #555;
+  }
+}

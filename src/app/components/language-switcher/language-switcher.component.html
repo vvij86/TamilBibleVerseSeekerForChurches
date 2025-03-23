@@ -1,0 +1,7 @@
+<p-dropdown
+  [options]="languages"
+  [(ngModel)]="selected"
+  (onChange)="languageChanged.emit(selected)"
+  optionLabel="label"
+  styleClass="p-inputtext-sm">
+</p-dropdown>

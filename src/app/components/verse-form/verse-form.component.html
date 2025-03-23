@@ -1,0 +1,22 @@
+<div class="verse-form p-d-flex p-ai-center p-jc-start p-p-2">
+    <p-inputText
+      placeholder="Book Name"
+      [(ngModel)]="bookName"
+      (keydown.enter)="submit()">
+    </p-inputText>
+  
+    <p-inputNumber
+      placeholder="Chapter"
+      [(ngModel)]="chapterNumber"
+      (keydown.enter)="submit()">
+    </p-inputNumber>
+  
+    <p-inputNumber
+      placeholder="Verse"
+      [(ngModel)]="verseNumber"
+      (keydown.enter)="submit()">
+    </p-inputNumber>
+  
+    <button pButton label="Submit" (click)="submit()"></button>
+  </div>
+  

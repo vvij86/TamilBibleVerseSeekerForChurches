@@ -1,0 +1,130 @@
+<!-- Header containing Navigation Tabs, Title, and Language Dropdown -->
+<header class="c p-d-flex p-ai-center p-p-2">
+  <div class="nav-lang-container p-d-flex p-ai-center p-jc-between" style="flex: 1;">
+    
+    <!-- Navigation Tabs -->
+    <nav class="header-nav">
+      <a routerLink="/home" class="nav-tab p-mr-2">Home</a>
+      <a routerLink="/about" class="nav-tab">About</a>
+    </nav>
+
+    <!-- Title Centered -->
+    <div class="title-container-inline">
+      <h1 class="app-title">Almighty God Believers Church - Bible Seeker</h1>
+    </div>
+
+    <!-- Language Dropdown -->
+    <p-dropdown
+      [options]="languages"
+      [(ngModel)]="selectedLanguage"
+      (onChange)="onLanguageChange()"
+      optionLabel="label"
+      styleClass="p-inputtext-sm">
+    </p-dropdown>
+    
+  </div>
+</header>
+
+
+
+
+<!-- Verse Search Form -->
+<div class="verse-form p-d-flex p-ai-center p-jc-start p-p-2">
+  <p-dropdown
+    [options]="bookOptions"
+    [(ngModel)]="bookName"
+    placeholder="Select or Enter Book Name"
+    optionLabel="label"
+    [editable]="true"
+    (onChange)="onBookNameChange($event)"
+    [style]="{'height': '41px'}">
+  </p-dropdown>
+
+  <p-inputNumber
+  #chapterInput
+    placeholder="Chapter"
+    [(ngModel)]="chapterNumber"
+    (keydown.enter)="submitVerse()">
+  </p-inputNumber>
+
+  <p-inputNumber
+    placeholder="Verse"
+    [(ngModel)]="verseNumber"
+    (keydown.enter)="submitVerse()">
+  </p-inputNumber>
+
+  <button pButton label="Submit" (click)="submitVerse()"></button>
+</div>
+
+<!-- PrimeNG Splitter with two Listboxes -->
+<p-splitter [panelSizes]="[60, 40]" [ngStyle]="{'height': '1000px', 'margin': '1rem 0'}">
+  <ng-template pTemplate="panel">
+    <div [ngStyle]="{'display': 'flex', 'flex-direction': 'column', 'height': '100%', 'width': '100%'}">
+      <!-- Heading at the top -->
+      <h3 style="margin: 3px;">Old Testament</h3>
+      <!-- Horizontal container for listboxes -->
+      <div [ngStyle]="{'flex': '1', 'display': 'flex', 'flex-direction': 'row', 'overflow-x': 'auto'}">
+        <p-listbox 
+          [options]="oldTestamentBookOptions1"
+          [ngStyle]="{'flex': '1'}"
+          optionLabel="label" 
+          class="custom-listbox"
+          (onChange)="onListboxSelect($event)">
+        </p-listbox>
+        <p-listbox 
+          [options]="oldTestamentBookOptions2"
+          [ngStyle]="{'flex': '1'}"
+          optionLabel="label" 
+          class="custom-listbox"
+          (onChange)="onListboxSelect($event)">
+        </p-listbox>
+        <p-listbox 
+          [options]="oldTestamentBookOptions3"
+          [ngStyle]="{'flex': '1'}"
+          optionLabel="label" 
+          class="custom-listbox"
+          (onChange)="onListboxSelect($event)">
+        </p-listbox>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="panel">
+    <div [ngStyle]="{'display': 'flex', 'flex-direction': 'column', 'height': '100%', 'width': '100%'}">
+      <!-- Heading at the top -->
+      <h3 style="margin: 3px;">New Testament</h3>
+      <!-- Horizontal container for listboxes -->
+      <div [ngStyle]="{'flex': '1', 'display': 'flex', 'flex-direction': 'row', 'overflow-x': 'auto'}">
+        <p-listbox 
+          [options]="newTestamentBookOptions1"
+          [ngStyle]="{'flex': '1'}"
+          optionLabel="label" 
+          class="custom-listbox"
+          (onChange)="onListboxSelect($event)">
+        </p-listbox>
+        <p-listbox 
+          [options]="newTestamentBookOptions2"
+          [ngStyle]="{'flex': '1'}"
+          optionLabel="label" 
+          class="custom-listbox"
+          (onChange)="onListboxSelect($event)">
+        </p-listbox>
+        <p-listbox 
+          [options]="newTestamentBookOptions3"
+          [ngStyle]="{'flex': '1'}"
+          optionLabel="label" 
+          class="custom-listbox"
+          (onChange)="onListboxSelect($event)">
+        </p-listbox>
+      </div>
+    </div>
+  </ng-template>
+</p-splitter>
+
+
+
+<!-- Fullscreen container for verse display -->
+<div *ngIf="fullscreenMode" class="fullscreen" #fullscreenContainer tabindex="0">
+  <div class="verse-text" #verseText>{{ currentVerseText }}</div>
+  <div class="verse-info">{{ currentBook }} {{ currentChapter }} : {{ currentVerse }}</div>
+</div>
