@@ -8,7 +8,7 @@
   }
   
   .verse-form {
-    // Additional styling if needed
+    gap: 0.5rem;
   }
   
   /* Navigation Tabs, Title, and Language Dropdown Container */
@@ -102,11 +102,13 @@
       box-sizing: border-box;
     }
   
+    
     .verse-info {
       flex: 0 0 5%;
       width: 100%;
-      font-size: 1.5rem;
-      color: #555;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #333333;
       text-align: center;
       display: flex;
       justify-content: center;
@@ -116,5 +118,62 @@
     }
   }
   
+  .language-dropdown-container {
+    display: flex;
+    align-items: center;
   
+    .dropdown-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #333;
+    }
+    ::ng-deep .p-select-label.p-placeholder{
+      height: 25px !important;
+    }
+    ::ng-deep .small-dropdown {
+      .p-dropdown {
+        height: 25px !important; // Adjust height here
+      }
   
+      .p-dropdown-label {
+        padding: 0.1rem 0.4rem !important;
+        font-size: 0.8rem !important;
+      }
+  
+      .p-dropdown-trigger {
+        height: 25px !important;
+        width: 30px !important;
+      }
+    }
+  }
+
+  ::ng-deep .p-tabmenu .p-tabmenu-nav {
+    border: none;
+  }
+  
+  ::ng-deep .p-tabmenuitem {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
+  ::ng-deep .p-tabmenuitem.p-highlight .p-menuitem-link {
+    border-bottom: 3px solid #3b82f6; // blue underline when active
+    color: #3b82f6 !important; // blue color when active
+  }
+
+  ::ng-deep .small-input {
+    height: 25px !important;
+    font-size: 0.9rem !important;
+    padding: 0.2rem 0.5rem !important;
+  }
+  
+  // Button height adjustment (optional for consistency)
+  .small-button {
+    height: 25px !important;
+    padding: 0.2rem 0.75rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  :host ::ng-deep .p-select-label.p-placeholder{
+    height: 25px !important;
+  }

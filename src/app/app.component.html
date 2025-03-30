@@ -3,10 +3,8 @@
   <div class="nav-lang-container p-d-flex p-ai-center p-jc-between" style="flex: 1;">
     
     <!-- Navigation Tabs -->
-    <nav class="header-nav">
-      <a routerLink="/home" class="nav-tab p-mr-2">Home</a>
-      <a routerLink="/about" class="nav-tab">About</a>
-    </nav>
+    <p-tabMenu [model]="navItems"></p-tabMenu>
+
 
     <!-- Title Centered -->
     <div class="title-container-inline">
@@ -14,13 +12,18 @@
     </div>
 
     <!-- Language Dropdown -->
-    <p-dropdown
-      [options]="languages"
-      [(ngModel)]="selectedLanguage"
-      (onChange)="onLanguageChange()"
-      optionLabel="label"
-      styleClass="p-inputtext-sm">
-    </p-dropdown>
+    <div class="language-dropdown-container p-d-flex p-ai-center">
+      <label class="dropdown-label p-mr-2" style="font-weight: bold;">Language:    </label>
+      <p-dropdown
+        [options]="languages"
+        [(ngModel)]="selectedLanguage"
+        (onChange)="onLanguageChange()"
+        optionLabel="label"
+        styleClass="small-dropdown"
+      >
+      </p-dropdown>
+    </div>
+    
     
   </div>
 </header>
@@ -36,28 +39,31 @@
     placeholder="Select or Enter Book Name"
     optionLabel="label"
     [editable]="true"
-    (onChange)="onBookNameChange($event)"
-    [style]="{'height': '41px'}">
+    (onChange)="onBookNameChange($event)">
   </p-dropdown>
 
   <p-inputNumber
-  #chapterInput
-  placeholder="Chapter"
-  [pAutoFocus]="true"
-  [(ngModel)]="chapterNumber"
-  (keydown.enter)="submitVerse()"
-  (onFocus)="selectInputText($event)">
-</p-inputNumber>
+    #chapterInput
+    [min]="1"
+    placeholder="Chapter"
+    [pAutoFocus]="true"
+    [(ngModel)]="chapterNumber"
+    (keydown.enter)="submitVerse()"
+    (onFocus)="selectAllText(chapterInput)"
+    inputStyleClass="small-input">
+  </p-inputNumber>
 
-<p-inputNumber
-  placeholder="Verse"
-  [(ngModel)]="verseNumber"
-  (keydown.enter)="submitVerse()"
-  (onFocus)="selectInputText($event)">
-</p-inputNumber>
+  <p-inputNumber
+    #verseInput
+    placeholder="Verse"
+    [min]="1"
+    [(ngModel)]="verseNumber"
+    (keydown.enter)="submitVerse()"
+    (onFocus)="selectAllText(verseInput)"
+    inputStyleClass="small-input">
+  </p-inputNumber>
 
-
-  <button pButton label="Submit" (click)="submitVerse()"></button>
+  <button pButton label="Submit" class="small-button" (click)="submitVerse()"></button>
 </div>
 
 <!-- PrimeNG Splitter with two Listboxes -->

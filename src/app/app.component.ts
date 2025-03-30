@@ -11,6 +11,9 @@ import { ButtonModule } from 'primeng/button';
 import { SplitterModule } from 'primeng/splitter';
 import { ListboxModule } from 'primeng/listbox';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { MenuItem } from 'primeng/api';
+import { TabMenuModule } from 'primeng/tabmenu';
+
 
 
 @Component({
@@ -24,7 +27,8 @@ import { AutoFocusModule } from 'primeng/autofocus';
     ButtonModule,
     SplitterModule,
     ListboxModule,
-    AutoFocusModule
+    AutoFocusModule,
+    TabMenuModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -34,6 +38,10 @@ export class AppComponent implements OnInit,AfterViewChecked  {
   @ViewChild('chapterInput') chapterInputRef!: InputNumber;
   @ViewChild('verseText') verseTextRef!: ElementRef;
 
+  navItems: MenuItem[] = [
+    { label: 'Home', routerLink: '/home' },
+    { label: 'About', routerLink: '/about' },
+  ];
   currentFontSize = 6; // initial large font size in vh units
   adjustingFontSize = false;
   languages = [
@@ -149,11 +157,11 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     this.bookName = event.value ? event.value.label : '';
   }
 
-  selectInputText(event: any) {
+  selectAllText(inputNumberComponent: InputNumber): void {
     setTimeout(() => {
-      const inputElement = event.originalEvent.target;
-      if (inputElement && inputElement.select) {
-        inputElement.select();
+      const inputEl = inputNumberComponent.input.nativeElement as HTMLInputElement;
+      if (inputEl) {
+        inputEl.select();  // Highlights the input text
       }
     });
   }
