@@ -149,6 +149,15 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     this.bookName = event.value ? event.value.label : '';
   }
 
+  selectInputText(event: any) {
+    setTimeout(() => {
+      const inputElement = event.originalEvent.target;
+      if (inputElement && inputElement.select) {
+        inputElement.select();
+      }
+    });
+  }
+  
   // Called when a book is selected from either listbox
   onListboxSelect(event: any) {
     const selected = event.value;

@@ -41,19 +41,21 @@
   </p-dropdown>
 
   <p-inputNumber
-    #chapterInput
-    placeholder="Chapter"
-    [pAutoFocus]="true" 
-    [(ngModel)]="chapterNumber"
-    (keydown.enter)="submitVerse()">
-  </p-inputNumber>
+  #chapterInput
+  placeholder="Chapter"
+  [pAutoFocus]="true"
+  [(ngModel)]="chapterNumber"
+  (keydown.enter)="submitVerse()"
+  (onFocus)="selectInputText($event)">
+</p-inputNumber>
 
+<p-inputNumber
+  placeholder="Verse"
+  [(ngModel)]="verseNumber"
+  (keydown.enter)="submitVerse()"
+  (onFocus)="selectInputText($event)">
+</p-inputNumber>
 
-  <p-inputNumber
-    placeholder="Verse"
-    [(ngModel)]="verseNumber"
-    (keydown.enter)="submitVerse()">
-  </p-inputNumber>
 
   <button pButton label="Submit" (click)="submitVerse()"></button>
 </div>
