@@ -120,9 +120,9 @@ export class AppComponent implements OnInit,AfterViewChecked  {
       ? ChapterNames.chapNamesInTamil
       : ChapterNames.chapNamesInEnglish;
     // First 39 books as Old Testament, rest as New Testament
-    this.oldTestamentBooks1 = chapterNames.slice(0, 14);
-    this.oldTestamentBooks2 = chapterNames.slice(14, 28);
-    this.oldTestamentBooks3 = chapterNames.slice(28, 39);
+    this.oldTestamentBooks1 = chapterNames.slice(0, 13);
+    this.oldTestamentBooks2 = chapterNames.slice(13, 26);
+    this.oldTestamentBooks3 = chapterNames.slice(26, 39);
     this.newTestamentBooks1 = chapterNames.slice(39,50);
     this.newTestamentBooks2 = chapterNames.slice(50,60);
     this.newTestamentBooks3 = chapterNames.slice(60);
