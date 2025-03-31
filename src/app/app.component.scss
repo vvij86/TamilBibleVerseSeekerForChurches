@@ -83,49 +83,52 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('../assets/2366106.jpg'); // your image
+    background-image: url('../assets/2366106.jpg'); /* your image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
     text-align: left;
     z-index: 999;
-    border: none;  // optional
+    border: none;
     padding: 1rem;
     box-sizing: border-box;
-  
-    .verse-text {
-      flex: 0 0 95%;
-      width: 100%;
-      overflow: hidden;
-      padding: 0.5rem;
-      font-weight: bold;
-      box-sizing: border-box;
-      background-color: transparent;//rgba(255, 255, 255, 0.4); // semi-transparent white
-      color: #FDF5E6;//#FFF8E7; // Soft warm white for excellent readability
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6); // optional subtle shadow
-    }
-  
-    .verse-info {
-      flex: 0 0 5%;
-      width: 100%;
-      font-size: 3rem;
-      line-height: 3.5rem;
-      font-weight: bold;
-      color: #333333;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-      background-color: transparent;//rgba(255, 255, 255, 0.2); // semi-transparent white
-      color: #FDF5E6;//#FFF8E7; // Soft warm white for excellent readability
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6); // optional subtle shadow
-    }
   }
+  
+  .verse-text {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    padding: 0.5rem;
+    font-weight: bold;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: #FDF5E6;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+  }
+  
+  .verse-info {
+    width: 100%;
+    font-size: 3rem;
+    line-height: 3.5rem;
+    font-weight: bold;
+    color: #FDF5E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: transparent;
+    //padding: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6); 
+  }
+  
+  .language-toggle {
+    margin-left: auto;
+  }
+  
   
   
   

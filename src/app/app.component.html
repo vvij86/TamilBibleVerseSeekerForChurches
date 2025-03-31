@@ -134,7 +134,20 @@
 
 
 <!-- Fullscreen container for verse display -->
+<!-- Fullscreen container for verse display -->
 <div *ngIf="fullscreenMode" class="fullscreen" #fullscreenContainer tabindex="0">
   <div class="verse-text" #verseText>{{ currentVerseText }}</div>
-  <div class="verse-info">{{ currentBook }} {{ currentChapter }} : {{ currentVerse }}</div>
+  <div class="verse-info">
+    <span>{{ currentBook }} {{ currentChapter }} : {{ currentVerse }}</span>
+    <p-toggleButton
+      [(ngModel)]="isEnglish"
+      onLabel="English"
+      offLabel="Tamil"
+      onIcon="pi pi-check"
+      offIcon="pi pi-times"
+      (onChange)="toggleLanguage()"
+      class="language-toggle"
+    ></p-toggleButton>
+  </div>
 </div>
+

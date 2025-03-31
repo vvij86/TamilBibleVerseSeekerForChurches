@@ -13,7 +13,8 @@ import { ListboxModule } from 'primeng/listbox';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
-
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -28,7 +29,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
     SplitterModule,
     ListboxModule,
     AutoFocusModule,
-    TabMenuModule
+    TabMenuModule,
+    ToggleButtonModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -78,6 +80,7 @@ export class AppComponent implements OnInit,AfterViewChecked  {
   newTestamentBookOptions2: { label: string }[] = [];
   newTestamentBookOptions3: { label: string }[] = [];
 
+  constructor(private cdr: ChangeDetectorRef) { }
   ngOnInit(): void {
     this.loadBibleData();
     this.splitBooks();
@@ -90,6 +93,22 @@ export class AppComponent implements OnInit,AfterViewChecked  {
       this.bookName = 'Genesis';
     }
     
+  }
+
+  isEnglish: boolean = false; // Default to English
+
+  toggleLanguage() {
+    console.log("Vijay Vignesh")
+    console.log(this.chapterNumber)
+    this.isEnglish = !this.isEnglish;
+    console.log("Vijay Vignesh"+this.isEnglish)
+    this.selectedLanguage = this.isEnglish
+      ? { label: 'English', value: 'English' }
+      : { label: 'Tamil', value: 'Tamil' };
+    console.log(this.selectedLanguage)
+    this.onLanguageChange();
+    console.log(this.chapterNumber)
+    this.submitVerse()
   }
 
   focusChapterInput() {
@@ -113,9 +132,11 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     if (this.selectedLanguage['value'] === 'Tamil')
     {
       this.bookName = 'ஆதியாகமம்';
+      this.isEnglish = true; 
     }
     else {
       this.bookName = 'Genesis';
+      this.isEnglish = false;
     }
   }
 
@@ -239,7 +260,7 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     } else {
       if (this.currentChapter > 1) {
         this.currentChapter--;
-        const chapterNames = this.selectedLanguage['value'] === 'Tamil'
+        const chapterNames = this.selectedLanguage.value === 'Tamil'
           ? ChapterNames.chapNamesInTamil
           : ChapterNames.chapNamesInEnglish;
         const bookIndex = chapterNames.indexOf(this.currentBook);
@@ -248,16 +269,19 @@ export class AppComponent implements OnInit,AfterViewChecked  {
         return;
       }
     }
+    // Update the form inputs
+    this.chapterNumber = this.currentChapter;
+    this.verseNumber = this.currentVerse;
     this.updateVerseText();
   }
-
+  
   nextVerse() {
-    const chapterNames = this.selectedLanguage['value'] === 'Tamil'
+    const chapterNames = this.selectedLanguage.value === 'Tamil'
       ? ChapterNames.chapNamesInTamil
       : ChapterNames.chapNamesInEnglish;
     const bookIndex = chapterNames.indexOf(this.currentBook);
     const currentChapterVerses = this.bibleData.Book[bookIndex].Chapter[this.currentChapter - 1].Verse.length;
-
+  
     if (this.currentVerse < currentChapterVerses) {
       this.currentVerse++;
     } else {
@@ -269,8 +293,12 @@ export class AppComponent implements OnInit,AfterViewChecked  {
         return;
       }
     }
+    // Update the form inputs
+    this.chapterNumber = this.currentChapter;
+    this.verseNumber = this.currentVerse;
     this.updateVerseText();
   }
+  
 
   private adjustFontSizeToFit(): void {
     this.adjustingFontSize = true;
