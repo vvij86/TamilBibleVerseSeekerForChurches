@@ -1,5 +1,4 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild,AfterViewChecked  } from '@angular/core';
-import { ChapterNames } from './data/ChapterNames';
 import tamilBible from '../assets/tamilBible.json';
 import englishBible from '../assets/englishBible.json';
 import { CommonModule } from '@angular/common';
@@ -15,7 +14,7 @@ import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { ChapterNames } from './constants/ChapterNames';
 
 @Component({
   selector: 'app-root',
@@ -98,8 +97,10 @@ export class AppComponent implements OnInit,AfterViewChecked  {
   isEnglish: boolean = false; // Default to English
 
   toggleLanguage() {
+    //const bookNam = this.bookName;
+    const ind = ChapterNames.getChapterIndex(this.bookName)
     console.log("Vijay Vignesh")
-    console.log(this.chapterNumber)
+    console.log(ind)
     this.isEnglish = !this.isEnglish;
     console.log("Vijay Vignesh"+this.isEnglish)
     this.selectedLanguage = this.isEnglish
@@ -108,6 +109,8 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     console.log(this.selectedLanguage)
     this.onLanguageChange();
     console.log(this.chapterNumber)
+    const bookNam = ChapterNames.getChapterName(ind,this.selectedLanguage.value)
+    this.bookName = bookNam;
     this.submitVerse()
   }
 
