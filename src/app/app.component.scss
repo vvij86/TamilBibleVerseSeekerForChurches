@@ -72,9 +72,21 @@
   ::ng-deep .custom-listbox .p-listbox {
     font-size: 0.75rem;
   }
+
+  ::ng-deep .p-listbox {
+    width: auto !important;
+    display: inline-block;
+    white-space: nowrap;
+    min-width: 150px; /* Optional: Set a minimum width if needed */
+  }
   
   :host ::ng-deep p-listbox {
     width: 100% !important;
+  }
+
+  ::ng-deep .p-listbox,
+  ::ng-deep .p-listbox .p-listbox-list-container {
+    border: none !important;
   }
   
   .fullscreen {

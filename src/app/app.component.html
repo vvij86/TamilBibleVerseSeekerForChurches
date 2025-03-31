@@ -5,31 +5,25 @@
     <!-- Navigation Tabs -->
     <p-tabMenu [model]="navItems"></p-tabMenu>
 
-
     <!-- Title Centered -->
     <div class="title-container-inline">
-      <h1 class="app-title">Almighty God Believers Church - Bible Seeker</h1>
+      <h1 class="app-title">Almighty God Believers Church (Thanjavur) - Bible Seeker</h1>
     </div>
 
     <!-- Language Dropdown -->
     <div class="language-dropdown-container p-d-flex p-ai-center">
-      <label class="dropdown-label p-mr-2" style="font-weight: bold;">Language:    </label>
+      <label class="dropdown-label p-mr-2" style="font-weight: bold;">Language:</label>
       <p-dropdown
         [options]="languages"
         [(ngModel)]="selectedLanguage"
         (onChange)="onLanguageChange()"
         optionLabel="label"
         styleClass="small-dropdown"
-      >
-      </p-dropdown>
+      ></p-dropdown>
     </div>
-    
     
   </div>
 </header>
-
-
-
 
 <!-- Verse Search Form -->
 <div class="verse-form p-d-flex p-ai-center p-jc-start p-p-2">
@@ -66,13 +60,12 @@
   <button pButton label="Submit" class="small-button" (click)="submitVerse()"></button>
 </div>
 
-<!-- PrimeNG Splitter with two Listboxes -->
-<p-splitter [panelSizes]="[60, 40]" [ngStyle]="{'height': '1000px', 'margin': '1rem 0'}">
+<!-- PrimeNG Splitter with three panels: Old Testament, New Testament, History -->
+<p-splitter [panelSizes]="[40, 40, 20]" [ngStyle]="{'height': '1000px', 'margin': '1rem 0'}">
+  <!-- Old Testament Panel -->
   <ng-template pTemplate="panel">
     <div [ngStyle]="{'display': 'flex', 'flex-direction': 'column', 'height': '100%', 'width': '100%'}">
-      <!-- Heading at the top -->
       <h3 style="margin: 3px;">Old Testament</h3>
-      <!-- Horizontal container for listboxes -->
       <div [ngStyle]="{'flex': '1', 'display': 'flex', 'flex-direction': 'row', 'overflow-x': 'auto'}">
         <p-listbox 
           [options]="oldTestamentBookOptions1"
@@ -99,11 +92,10 @@
     </div>
   </ng-template>
 
+  <!-- New Testament Panel -->
   <ng-template pTemplate="panel">
     <div [ngStyle]="{'display': 'flex', 'flex-direction': 'column', 'height': '100%', 'width': '100%'}">
-      <!-- Heading at the top -->
       <h3 style="margin: 3px;">New Testament</h3>
-      <!-- Horizontal container for listboxes -->
       <div [ngStyle]="{'flex': '1', 'display': 'flex', 'flex-direction': 'row', 'overflow-x': 'auto'}">
         <p-listbox 
           [options]="newTestamentBookOptions1"
@@ -129,11 +121,24 @@
       </div>
     </div>
   </ng-template>
+
+  <!-- History Panel -->
+  <ng-template pTemplate="panel">
+    <div [ngStyle]="{'display': 'flex', 'flex-direction': 'column', 'height': '100%', 'width': '100%'}">
+      <h3 style="margin: 3px;">History</h3>
+      <div [ngStyle]="{'flex': '1', 'display': 'flex', 'flex-direction': 'row', 'overflow-x': 'auto'}">
+        <p-listbox 
+          [options]="historyOptions"
+          [ngStyle]="{'flex': '1'}"
+          optionLabel="label" 
+          class="custom-listbox"
+          (onChange)="onHistorySelect($event)">
+        </p-listbox>        
+      </div>
+    </div>
+  </ng-template>
 </p-splitter>
 
-
-
-<!-- Fullscreen container for verse display -->
 <!-- Fullscreen container for verse display -->
 <div *ngIf="fullscreenMode" class="fullscreen" #fullscreenContainer tabindex="0">
   <div class="verse-text" #verseText>{{ currentVerseText }}</div>
@@ -146,8 +151,7 @@
       onIcon="pi pi-check"
       offIcon="pi pi-times"
       (onChange)="toggleLanguage()"
-      class="language-toggle"
-    ></p-toggleButton>
+      class="language-toggle">
+    </p-toggleButton>
   </div>
 </div>
-

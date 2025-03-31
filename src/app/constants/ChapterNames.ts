@@ -67,4 +67,21 @@ export class ChapterNames {
         return '';
     }
   }
+
+  static getChapterLanguage(chapterName: string): string {
+    // Check English (case-insensitive)
+    if (this.chapNamesInEnglish.some(name => name.toLowerCase() === chapterName.toLowerCase())) {
+        return 'English';
+    }
+    // Check Tamil (exact match)
+    if (this.chapNamesInTamil.includes(chapterName)) {
+        return 'Tamil';
+    }
+    // Check Telugu (exact match)
+    if (this.chapNamesInTelugu.includes(chapterName)) {
+        return 'Telugu';
+    }
+    // Return an empty string if not found
+    return '';
+}
 }

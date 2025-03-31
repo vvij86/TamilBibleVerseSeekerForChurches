@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild,AfterViewChecked  } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, NgZone } from '@angular/core';
 import tamilBible from '../assets/tamilBible.json';
 import englishBible from '../assets/englishBible.json';
 import { CommonModule } from '@angular/common';
@@ -13,8 +13,14 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ToggleButtonModule } from 'primeng/togglebutton';
-import { ChangeDetectorRef } from '@angular/core';
 import { ChapterNames } from './constants/ChapterNames';
+
+interface HistoryItem {
+  label: string;  // Display label for the listbox
+  book: string;
+  chapter: number;
+  verse: number;
+}
 
 @Component({
   selector: 'app-root',
@@ -34,7 +40,7 @@ import { ChapterNames } from './constants/ChapterNames';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit,AfterViewChecked  {
+export class AppComponent implements OnInit, AfterViewChecked {
   @ViewChild('fullscreenContainer') fullscreenContainer!: ElementRef;
   @ViewChild('chapterInput') chapterInputRef!: InputNumber;
   @ViewChild('verseText') verseTextRef!: ElementRef;
@@ -79,39 +85,44 @@ export class AppComponent implements OnInit,AfterViewChecked  {
   newTestamentBookOptions2: { label: string }[] = [];
   newTestamentBookOptions3: { label: string }[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  // History options for the history listbox
+  historyOptions: HistoryItem[] = [];
+
+  isEnglish: boolean = false; // Default to English
+
+  constructor(private cdr: ChangeDetectorRef, private zone: NgZone) { }
+  
   ngOnInit(): void {
     this.loadBibleData();
     this.splitBooks();
     this.initializeBookOptions();
-    if (this.selectedLanguage['value'] === 'Tamil')
-    {
+    if (this.selectedLanguage['value'] === 'Tamil') {
       this.bookName = 'ஆதியாகமம்';
-    }
-    else {
+    } else {
       this.bookName = 'Genesis';
     }
-    
   }
 
-  isEnglish: boolean = false; // Default to English
+  ngAfterViewChecked(): void {
+    if (this.fullscreenMode && !this.adjustingFontSize) {
+      this.adjustFontSizeToFit();
+    }
+  }
 
   toggleLanguage() {
-    //const bookNam = this.bookName;
-    const ind = ChapterNames.getChapterIndex(this.bookName)
-    console.log("Vijay Vignesh")
-    console.log(ind)
+    const ind = ChapterNames.getChapterIndex(this.bookName);
+    console.log("Vijay Vignesh", ind);
     this.isEnglish = !this.isEnglish;
-    console.log("Vijay Vignesh"+this.isEnglish)
+    console.log("Vijay Vignesh" + this.isEnglish);
     this.selectedLanguage = this.isEnglish
       ? { label: 'English', value: 'English' }
       : { label: 'Tamil', value: 'Tamil' };
-    console.log(this.selectedLanguage)
+    console.log(this.selectedLanguage);
     this.onLanguageChange();
-    console.log(this.chapterNumber)
-    const bookNam = ChapterNames.getChapterName(ind,this.selectedLanguage.value)
+    console.log(this.chapterNumber);
+    const bookNam = ChapterNames.getChapterName(ind, this.selectedLanguage.value);
     this.bookName = bookNam;
-    this.submitVerse()
+    this.submitVerse();
   }
 
   focusChapterInput() {
@@ -121,23 +132,14 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     }
   }
 
-  
-  ngAfterViewChecked(): void {
-    if (this.fullscreenMode && !this.adjustingFontSize) {
-      this.adjustFontSizeToFit();
-    }
-  }
-
   onLanguageChange() {
     this.loadBibleData();
     this.splitBooks();
     this.initializeBookOptions();
-    if (this.selectedLanguage['value'] === 'Tamil')
-    {
+    if (this.selectedLanguage['value'] === 'Tamil') {
       this.bookName = 'ஆதியாகமம்';
       this.isEnglish = true; 
-    }
-    else {
+    } else {
       this.bookName = 'Genesis';
       this.isEnglish = false;
     }
@@ -155,19 +157,17 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     this.oldTestamentBooks1 = chapterNames.slice(0, 13);
     this.oldTestamentBooks2 = chapterNames.slice(13, 26);
     this.oldTestamentBooks3 = chapterNames.slice(26, 39);
-    this.newTestamentBooks1 = chapterNames.slice(39,50);
-    this.newTestamentBooks2 = chapterNames.slice(50,60);
+    this.newTestamentBooks1 = chapterNames.slice(39, 50);
+    this.newTestamentBooks2 = chapterNames.slice(50, 60);
     this.newTestamentBooks3 = chapterNames.slice(60);
 
-    console.log(this.oldTestamentBooks1)
     // Convert to listbox option format
-    this.oldTestamentBookOptions1 = this.oldTestamentBooks1.map(book => ({ label: book, value:book }));
-    this.oldTestamentBookOptions2 = this.oldTestamentBooks2.map(book => ({ label: book, value:book }));
-    this.oldTestamentBookOptions3 = this.oldTestamentBooks3.map(book => ({ label: book, value:book }));
-    this.newTestamentBookOptions1 = this.newTestamentBooks1.map(book => ({ label: book, value:book }));
-    this.newTestamentBookOptions2 = this.newTestamentBooks2.map(book => ({ label: book, value:book }));
-    this.newTestamentBookOptions3 = this.newTestamentBooks3.map(book => ({ label: book, value:book }));
-    console.log(this.oldTestamentBookOptions1)
+    this.oldTestamentBookOptions1 = this.oldTestamentBooks1.map(book => ({ label: book, value: book }));
+    this.oldTestamentBookOptions2 = this.oldTestamentBooks2.map(book => ({ label: book, value: book }));
+    this.oldTestamentBookOptions3 = this.oldTestamentBooks3.map(book => ({ label: book, value: book }));
+    this.newTestamentBookOptions1 = this.newTestamentBooks1.map(book => ({ label: book, value: book }));
+    this.newTestamentBookOptions2 = this.newTestamentBooks2.map(book => ({ label: book, value: book }));
+    this.newTestamentBookOptions3 = this.newTestamentBooks3.map(book => ({ label: book, value: book }));
   }
 
   initializeBookOptions() {
@@ -185,15 +185,15 @@ export class AppComponent implements OnInit,AfterViewChecked  {
     setTimeout(() => {
       const inputEl = inputNumberComponent.input.nativeElement as HTMLInputElement;
       if (inputEl) {
-        inputEl.select();  // Highlights the input text
+        inputEl.select();
       }
     });
   }
   
-  // Called when a book is selected from either listbox
+  // Called when a book is selected from any listbox
   onListboxSelect(event: any) {
     const selected = event.value;
-    console.log(selected.label)
+    console.log(selected.label);
     if (selected && selected.label) {
       this.bookName = selected.label;
     }
@@ -223,12 +223,49 @@ export class AppComponent implements OnInit,AfterViewChecked  {
       this.currentChapter = this.chapterNumber;
       this.currentVerse = this.verseNumber;
       this.fullscreenMode = true;
+
+      // Build the history item
+      const historyLabel = `${this.bookName} ${this.chapterNumber}:${this.verseNumber}`;
+      const newHistoryItem: HistoryItem = {
+        label: historyLabel,
+        book: this.bookName,
+        chapter: this.chapterNumber,
+        verse: this.verseNumber
+      };
+
+      // Update history immutably and force change detection
+      if (!this.historyOptions.find(item => item.label === historyLabel)) {
+        this.zone.run(() => {
+          // Insert the new history item at the beginning
+          this.historyOptions = [newHistoryItem, ...this.historyOptions];
+          this.cdr.detectChanges();
+        });
+      }
+
       // Request browser fullscreen after view updates
       setTimeout(() => {
         this.requestFullscreen();
       });
     } catch (e) {
       this.currentVerseText = 'Verse not found';
+    }
+  }
+
+  onHistorySelect(event: any) {
+    const selected: HistoryItem = event.value;
+    if (selected) {
+      console.log("Book Name: " + selected.book);
+      console.log("Chapter Number: " + selected.chapter);
+      console.log("Verse Number: " + selected.verse);
+
+      const lang = ChapterNames.getChapterLanguage(selected.book);
+      this.selectedLanguage = { label: lang, value: lang };
+      this.onLanguageChange();
+      this.bookName = selected.book;
+      this.chapterNumber = selected.chapter;
+      this.verseNumber = selected.verse;
+      // Optionally, automatically display the selected verse:
+      this.submitVerse();
     }
   }
 
@@ -272,7 +309,6 @@ export class AppComponent implements OnInit,AfterViewChecked  {
         return;
       }
     }
-    // Update the form inputs
     this.chapterNumber = this.currentChapter;
     this.verseNumber = this.currentVerse;
     this.updateVerseText();
@@ -296,32 +332,24 @@ export class AppComponent implements OnInit,AfterViewChecked  {
         return;
       }
     }
-    // Update the form inputs
     this.chapterNumber = this.currentChapter;
     this.verseNumber = this.currentVerse;
     this.updateVerseText();
   }
   
-
   private adjustFontSizeToFit(): void {
     this.adjustingFontSize = true;
     const verseEl = this.verseTextRef.nativeElement as HTMLElement;
-    const parentHeight = verseEl.parentElement?.clientHeight ?? 0;
-    const parentWidth = verseEl.parentElement?.clientWidth ?? 0;
-
     const reduceFontSize = () => {
       const hasOverflow = verseEl.scrollHeight > verseEl.clientHeight || verseEl.scrollWidth > verseEl.clientWidth;
-
       if (hasOverflow && this.currentFontSize > 1) {
-        this.currentFontSize -= 0.1; // decrement slowly to find optimal size
+        this.currentFontSize -= 0.1;
         verseEl.style.fontSize = `calc(${this.currentFontSize}vw + ${this.currentFontSize}vh)`;
         requestAnimationFrame(reduceFontSize);
       } else {
         this.adjustingFontSize = false;
       }
     };
-
-    // set initial font size before checking
     verseEl.style.fontSize = `calc(${this.currentFontSize}vw + ${this.currentFontSize}vh)`;
     requestAnimationFrame(reduceFontSize);
   }
