@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, NgZone } from '@angular/core';
 import tamilBible from '../assets/tamilBible.json';
 import englishBible from '../assets/englishBible.json';
+import teluguBible from '../assets/teluguBible.json';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
@@ -53,7 +54,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
   adjustingFontSize = false;
   languages = [
     { label: 'English', value: 'English' },
-    { label: 'Tamil', value: 'Tamil' }
+    { label: 'Tamil', value: 'Tamil' },
+    { label: 'Telugu', value: 'Telugu' }
   ];
 
   selectedLanguage = { label: 'English', value: 'English' };
@@ -98,7 +100,9 @@ export class AppComponent implements OnInit, AfterViewChecked {
     this.initializeBookOptions();
     if (this.selectedLanguage['value'] === 'Tamil') {
       this.bookName = 'ஆதியாகமம்';
-    } else {
+    } else if (this.selectedLanguage['value'] === 'Telugu') {
+      this.bookName = 'ఆదికాండము';
+    }else {
       this.bookName = 'Genesis';
     }
   }
@@ -139,20 +143,40 @@ export class AppComponent implements OnInit, AfterViewChecked {
     if (this.selectedLanguage['value'] === 'Tamil') {
       this.bookName = 'ஆதியாகமம்';
       this.isEnglish = true; 
-    } else {
+    } else if (this.selectedLanguage['value'] === 'Telugu') {
+      this.bookName = 'ఆదికాండము';
+      this.isEnglish = false; 
+    }else {
       this.bookName = 'Genesis';
       this.isEnglish = false;
     }
   }
 
   loadBibleData() {
-    this.bibleData = this.selectedLanguage['value'] === 'Tamil' ? tamilBible : englishBible;
+    //this.bibleData = this.selectedLanguage['value'] === 'Tamil' ? tamilBible : englishBible;
+    if(this.selectedLanguage['value'] === 'Tamil')
+    {
+      this.bibleData = tamilBible;
+    }else if(this.selectedLanguage['value'] === 'Telugu'){
+      this.bibleData = teluguBible;
+    }else {
+      this.bibleData = englishBible
+    }
   }
 
   splitBooks() {
-    const chapterNames = this.selectedLanguage['value'] === 'Tamil'
-      ? ChapterNames.chapNamesInTamil
-      : ChapterNames.chapNamesInEnglish;
+    // const chapterNames = this.selectedLanguage['value'] === 'Tamil'
+    //   ? ChapterNames.chapNamesInTamil
+    //   : ChapterNames.chapNamesInEnglish;
+    var chapterNames = []
+    if (this.selectedLanguage['value'] === 'Tamil') {
+      chapterNames = ChapterNames.chapNamesInTamil;
+    } else if (this.selectedLanguage['value'] === 'Telugu') {
+      chapterNames = ChapterNames.chapNamesInTelugu;
+    }else {
+      chapterNames = ChapterNames.chapNamesInEnglish;
+    }
+
     // First 39 books as Old Testament, rest as New Testament
     this.oldTestamentBooks1 = chapterNames.slice(0, 13);
     this.oldTestamentBooks2 = chapterNames.slice(13, 26);
@@ -171,9 +195,17 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
 
   initializeBookOptions() {
-    const chapterNames = this.selectedLanguage['value'] === 'Tamil'
-      ? ChapterNames.chapNamesInTamil
-      : ChapterNames.chapNamesInEnglish;
+    // const chapterNames = this.selectedLanguage['value'] === 'Tamil'
+    //   ? ChapterNames.chapNamesInTamil
+    //   : ChapterNames.chapNamesInEnglish;
+    var chapterNames = []
+    if (this.selectedLanguage['value'] === 'Tamil') {
+      chapterNames = ChapterNames.chapNamesInTamil;
+    } else if (this.selectedLanguage['value'] === 'Telugu') {
+      chapterNames = ChapterNames.chapNamesInTelugu;
+    }else {
+      chapterNames = ChapterNames.chapNamesInEnglish;
+    }
     this.bookOptions = chapterNames.map(book => ({ label: book }));
   }
 
@@ -207,9 +239,17 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
   submitVerse() {
     this.currentFontSize = 6;
-    const chapterNames = this.selectedLanguage['value'] === 'Tamil'
-      ? ChapterNames.chapNamesInTamil
-      : ChapterNames.chapNamesInEnglish;
+    // const chapterNames = this.selectedLanguage['value'] === 'Tamil'
+    //   ? ChapterNames.chapNamesInTamil
+    //   : ChapterNames.chapNamesInEnglish;
+    var chapterNames = []
+    if (this.selectedLanguage['value'] === 'Tamil') {
+      chapterNames = ChapterNames.chapNamesInTamil;
+    } else if (this.selectedLanguage['value'] === 'Telugu') {
+      chapterNames = ChapterNames.chapNamesInTelugu;
+    }else {
+      chapterNames = ChapterNames.chapNamesInEnglish;
+    }
     const bookIndex = chapterNames.indexOf(this.bookName);
     if (bookIndex === -1) {
       this.currentVerseText = 'Book not found';
@@ -300,9 +340,17 @@ export class AppComponent implements OnInit, AfterViewChecked {
     } else {
       if (this.currentChapter > 1) {
         this.currentChapter--;
-        const chapterNames = this.selectedLanguage.value === 'Tamil'
-          ? ChapterNames.chapNamesInTamil
-          : ChapterNames.chapNamesInEnglish;
+        // const chapterNames = this.selectedLanguage.value === 'Tamil'
+        //   ? ChapterNames.chapNamesInTamil
+        //   : ChapterNames.chapNamesInEnglish;
+        var chapterNames = []
+        if (this.selectedLanguage['value'] === 'Tamil') {
+          chapterNames = ChapterNames.chapNamesInTamil;
+        } else if (this.selectedLanguage['value'] === 'Telugu') {
+          chapterNames = ChapterNames.chapNamesInTelugu;
+        }else {
+          chapterNames = ChapterNames.chapNamesInEnglish;
+        }
         const bookIndex = chapterNames.indexOf(this.currentBook);
         this.currentVerse = this.bibleData.Book[bookIndex].Chapter[this.currentChapter - 1].Verse.length;
       } else {
@@ -315,9 +363,17 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
   
   nextVerse() {
-    const chapterNames = this.selectedLanguage.value === 'Tamil'
-      ? ChapterNames.chapNamesInTamil
-      : ChapterNames.chapNamesInEnglish;
+    // const chapterNames = this.selectedLanguage.value === 'Tamil'
+    //   ? ChapterNames.chapNamesInTamil
+    //   : ChapterNames.chapNamesInEnglish;
+    var chapterNames = []
+    if (this.selectedLanguage['value'] === 'Tamil') {
+      chapterNames = ChapterNames.chapNamesInTamil;
+    } else if (this.selectedLanguage['value'] === 'Telugu') {
+      chapterNames = ChapterNames.chapNamesInTelugu;
+    }else {
+      chapterNames = ChapterNames.chapNamesInEnglish;
+    }
     const bookIndex = chapterNames.indexOf(this.currentBook);
     const currentChapterVerses = this.bibleData.Book[bookIndex].Chapter[this.currentChapter - 1].Verse.length;
   
@@ -356,9 +412,17 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
   updateVerseText() {
     this.currentFontSize = 6;
-    const chapterNames = this.selectedLanguage['value'] === 'Tamil'
-      ? ChapterNames.chapNamesInTamil
-      : ChapterNames.chapNamesInEnglish;
+    // const chapterNames = this.selectedLanguage['value'] === 'Tamil'
+    //   ? ChapterNames.chapNamesInTamil
+    //   : ChapterNames.chapNamesInEnglish;
+    var chapterNames = []
+    if (this.selectedLanguage['value'] === 'Tamil') {
+      chapterNames = ChapterNames.chapNamesInTamil;
+    } else if (this.selectedLanguage['value'] === 'Telugu') {
+      chapterNames = ChapterNames.chapNamesInTelugu;
+    }else {
+      chapterNames = ChapterNames.chapNamesInEnglish;
+    }
     const bookIndex = chapterNames.indexOf(this.currentBook);
     const verseObj = this.bibleData.Book[bookIndex].Chapter[this.currentChapter - 1].Verse[this.currentVerse - 1];
     this.currentVerseText = verseObj.Verse;

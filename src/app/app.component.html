@@ -144,7 +144,7 @@
   <div class="verse-text" #verseText>{{ currentVerseText }}</div>
   <div class="verse-info">
     <span>{{ currentBook }} {{ currentChapter }} : {{ currentVerse }}</span>
-    <p-toggleButton
+    <p-toggleButton *ngIf="selectedLanguage['value']!='Telugu'"
       [(ngModel)]="isEnglish"
       onLabel="English"
       offLabel="Tamil"
