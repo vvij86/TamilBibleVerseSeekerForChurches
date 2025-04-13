@@ -258,7 +258,9 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
     try {
       const verseObj = this.bibleData.Book[bookIndex].Chapter[this.chapterNumber - 1].Verse[this.verseNumber - 1];
-      this.currentVerseText = verseObj.Verse;
+      //this.currentVerseText = verseObj.Verse;
+      this.currentVerseText = `${this.verseNumber}. ${verseObj.Verse}`;
+
       this.currentBook = this.bookName;
       this.currentChapter = this.chapterNumber;
       this.currentVerse = this.verseNumber;
@@ -425,7 +427,9 @@ export class AppComponent implements OnInit, AfterViewChecked {
     }
     const bookIndex = chapterNames.indexOf(this.currentBook);
     const verseObj = this.bibleData.Book[bookIndex].Chapter[this.currentChapter - 1].Verse[this.currentVerse - 1];
-    this.currentVerseText = verseObj.Verse;
+    //this.currentVerseText = verseObj.Verse;
+    this.currentVerseText = `${this.verseNumber}. ${verseObj.Verse}`;
+
   }
 
   @HostListener('document:keydown.arrowup')
