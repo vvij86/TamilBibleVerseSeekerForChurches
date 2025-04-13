@@ -118,10 +118,28 @@
     font-weight: bold;
     box-sizing: border-box;
     background-color: transparent;
-    color: #FDF5E6;
+    //color: #FDF5E6;
+    color: #FFD700;
+    //color:blue ;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    -webkit-text-stroke: 0.5px rgba(0,0,0,0.8);
   }
   
+  // .verse-info {
+  //   width: 100%;
+  //   font-size: 3rem;
+  //   line-height: 3.5rem;
+  //   font-weight: bold;
+  //   color: #FDF5E6;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   box-sizing: border-box;
+  //   background-color: transparent;
+  //   //padding: 0.5rem;
+  //   text-shadow: 1px 1px 2px rgba(0,0,0,0.6); 
+  // }
+
   .verse-info {
     width: 100%;
     font-size: 3rem;
@@ -129,13 +147,86 @@
     font-weight: bold;
     color: #FDF5E6;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* center horizontally */
+    align-items: center; /* center vertically */
     box-sizing: border-box;
     background-color: transparent;
-    //padding: 0.5rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.6); 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    position: relative; /* added for absolute positioning of toggle button */
+  
+    span {
+      color: #FFD700;
+      font-weight: bold;
+      padding: 0.1em 0.4em;
+      border-radius: 0.25em;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
+      -webkit-text-stroke: 0.5px rgba(0,0,0,0.8);
+      background-color: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    }
+  
+    .language-toggle {
+      position: absolute;
+      right: 1rem; /* adjust spacing from right edge as needed */
+    }
   }
+  
+
+  /* Improved Visibility for Verse Info Span */
+// .verse-info span {
+//   color: #FFD700; // Bright Gold color for better visibility
+//   text-shadow: 2px 2px 4px rgba(0,0,0,0.8); // Enhanced shadow for readability
+// }
+
+// .verse-info span{
+//   /* High-contrast but soft text color */
+//   color: #FFFFF0;  /* an off-white ivory tone for better comfort than pure white */
+//   font-weight: bold;  /* make sure the font is reasonably thick for readability */
+//   text-shadow: 1px 1px 3px #000;  /* subtle dark shadow to outline text */
+  
+//   /* Optional: Add a thin outline for extra contrast (especially for small text) */
+//   -webkit-text-stroke: 1px #000;  /* outline text with 1px black (WebKit based browsers) */
+//   /* text-shadow could also be used for outline as shown above if text-stroke isn't fully supported */
+  
+//   /* Optional: Semi-transparent background for maximum legibility */
+//   /* background: rgba(0, 0, 0, 0.5);   a translucent dark background */
+//   /* padding: 0.1em 0.3em;            small padding around text */
+//   /* border-radius: 0.2em;           rounded corners for the background patch */
+// }
+
+// .verse-info span {
+//   color: #FFD700; /* Soft ivory white for text */
+//   font-weight: bold;
+//   padding: 0.1em 0.3em; /* Add slight padding for a neat highlight effect */
+//   border-radius: 0.2em; /* Rounded corners for smoother appearance */
+
+//   /* Subtle dark shadow for text visibility */
+//   text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+
+//   -webkit-text-stroke: 1px #000;
+
+//   /* Text highlight effect */
+//   background-color: rgba(255, 223, 0, 0.3); /* Soft translucent gold */
+//   box-shadow: 0 0 5px rgba(255, 223, 0, 0.5); /* Slight glowing effect */
+// }
+
+.verse-info span {
+  color: #FFD700; /* Gold color for text */
+  font-weight: bold;
+  padding: 0.1em 0.4em; /* Slightly increased horizontal padding */
+  border-radius: 0.25em; /* Softer rounded corners for smoother appearance */
+
+  /* Stronger shadow for clear text definition */
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
+
+  -webkit-text-stroke: 0.5px rgba(0,0,0,0.8); /* Slightly thinner outline for clarity */
+
+  /* Adjusted Text highlight effect */
+  background-color: rgba(0, 0, 0, 0.5); /* Dark translucent background for contrast */
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.8); /* Vibrant golden glow effect */
+}
+
+
   
   .language-toggle {
     margin-left: auto;
