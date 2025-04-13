@@ -58,6 +58,191 @@ export class AppComponent implements OnInit, AfterViewChecked {
     { label: 'Telugu', value: 'Telugu' }
   ];
 
+  tamilTransliterationMap: { [key: string]: string } = {
+    "aadiyagamam": "ஆதியாகமம்",
+    "aadhiyagamam": "ஆதியாகமம்",
+    "adhiyagamam": "ஆதியாகமம்",
+    "athiyagamam": "ஆதியாகமம்",
+    "aathiyagamam": "ஆதியாகமம்",
+    "yaathiraagamam": "யாத்திராகமம்",
+    "leviyinraagamam": "லேவியராகமம்",
+    "ennagamm": "எண்ணாகமம்",
+    "yennagamm": "எண்ணாகமம்",
+    "ubaagamam": "உபாகமம்",
+    "obaagamam": "உபாகமம்",
+    "oobaagamam": "உபாகமம்",
+    "yosuva": "யோசுவா",
+    "niyaayaadhipathigal": "நியாயாதிபதிகள்",
+    "nyaayaadhipathigal": "நியாயாதிபதிகள்",
+    "nyayaadhipathigal": "நியாயாதிபதிகள்",
+    "rooth": "ரூத்",
+    "1saamuvel": "1 சாமுவேல்",
+    "2saamuvel": "2 சாமுவேல்",
+    "1rajaakkal": "1 இராஜாக்கள்",
+    "2rajaakkal": "2 இராஜாக்கள்",
+    "1nalaagamam": "1 நாளாகமம்",
+    "2nalaagamam": "2 நாளாகமம்",
+    "1 samuvel": "1 சாமுவேல்",
+    "2 samuvel": "2 சாமுவேல்",
+    "1 rajaakkal": "1 இராஜாக்கள்",
+    "2 rajaakkal": "2 இராஜாக்கள்",
+    "1 nalaagamam": "1 நாளாகமம்",
+    "2 nalaagamam": "2 நாளாகமம்",
+    "esra": "எஸ்றா",
+    "yesra": "எஸ்றா",
+    "nehemiya": "நெகேமியா",
+    "esther": "எஸ்தர்",
+    "yobu": "யோபு",
+    "sangeetham": "சங்கீதம்",
+    "needhimozhigal": "நீதிமொழிகள்",
+    "pirachangi": "பிரசங்கி",
+    "unnathappaattu": "உன்னதப்பாட்டு",
+    "esaaya": "ஏசாயா",
+    "eremiya": "எரேமியா",
+    "yesaaya": "ஏசாயா",
+    "yeremiya": "எரேமியா",
+    "pulambal": "புலம்பல்",
+    "esekiyel": "எசேக்கியேல்",
+    "yesekiyel": "எசேக்கியேல்",
+    "dhaaniyel": "தானியேல்",
+    "daniyel": "தானியேல்",
+    "osiyaa": "ஓசியா",
+    "yovell": "யோவேல்",
+    "aamos": "ஆமோஸ்",
+    "amos": "ஆமோஸ்",
+    "obathiya": "ஒபதியா",
+    "yonah": "யோனா",
+    "meekaa": "மீகா",
+    "naakoom": "நாகூம்",
+    "aabakook": "ஆபகூக்",
+    "seppaniya": "செப்பனியா",
+    "aagai": "ஆகாய்",
+    "agai": "ஆகாய்",
+    "sagariya": "சகரியா",
+    "malkiya": "மல்கியா",
+    "matheyu": "மத்தேயு",
+    "maarku": "மாற்கு",
+    "luukka": "லுூக்கா",
+    "yovaan": "யோவான்",
+    "apposthalar": "அப்போஸ்தலர்",
+    "romar": "ரோமர்",
+    "1korinthiyar": "1 கொரிந்தியர்",
+    "2korinthiyar": "2 கொரிந்தியர்",
+    "1corinthiyar": "1 கொரிந்தியர்",
+    "2corinthiyar": "2 கொரிந்தியர்",
+    "1 korinthiyar": "1 கொரிந்தியர்",
+    "2 korinthiyar": "2 கொரிந்தியர்",
+    "1 corinthiyar": "1 கொரிந்தியர்",
+    "2 corinthiyar": "2 கொரிந்தியர்",
+    "kalaththiyar": "கலாத்தியர்",
+    "ebesiyar": "எபேசியர்",
+    "pilippiyar": "பிலிப்பியர்",
+    "philippiyar": "பிலிப்பியர்",
+    "koloseyar": "கொலோசெயர்",
+    "1thesalonikkaiyar": "1 தெசலோனிக்கேயர்",
+    "2thesalonikkaiyar": "2 தெசலோனிக்கேயர்",
+    "1 thesalonikkaiyar": "1 தெசலோனிக்கேயர்",
+    "2 thesalonikkaiyar": "2 தெசலோனிக்கேயர்",
+    "1theemothai": "1 தீமோத்தேயு",
+    "2theemothai": "2 தீமோத்தேயு",
+    "1timothy": "1 தீமோத்தேயு",
+    "2timothy": "2 தீமோத்தேயு",
+    "1 theemothai": "1 தீமோத்தேயு",
+    "2 theemothai": "2 தீமோத்தேயு",
+    "1 timothy": "1 தீமோத்தேயு",
+    "2 timothy": "2 தீமோத்தேயு",
+    "theethu": "தீத்து",
+    "pilemon": "பிலேமோன்",
+    "ebireyar": "எபிரெயர்",
+    "yaakkobu": "யாக்கோபு",
+    "1pethuru": "1 பேதுரு",
+    "2pethuru": "2 பேதுரு",
+    "1 pethuru": "1 பேதுரு",
+    "2 pethuru": "2 பேதுரு",
+    "1 peter": "1 பேதுரு",
+    "2 peter": "2 பேதுரு",
+    "1yovaan": "1 யோவான்",
+    "2yovaan": "2 யோவான்",
+    "3yovaan": "3 யோவான்",
+    "1 yovaan": "1 யோவான்",
+    "2 yovaan": "2 யோவான்",
+    "3 yovaan": "3 யோவான்",
+    "yoodhaa": "யூதா",
+    "yudhaa": "யூதா",
+    "velippaadhu": "வெளி"
+  };
+  
+  
+  teluguTransliterationMap: { [key: string]: string } = {
+    "aadikaandamu": "ఆదికాండము",
+    "nirgamakandamu": "నిర్గమకాండము",
+    "leviyakandamu": "లేవీయకాండము",
+    "sankhyaakandamu": "సంఖ్యాకాండము",
+    "dhviteeyopadesha": "ద్వితీయోపదేశకాండమ",
+    "yehoshuva": "యెహొషువ",
+    "nyaayaadhipathulu": "న్యాయాధిపతులు",
+    "ruthu": "రూతు",
+    "1samuyelu": "సమూయేలు మొదటి గ్రంథము",
+    "2samuyelu": "సమూయేలు రెండవ గ్రంథము",
+    "1raajulu": "రాజులు మొదటి గ్రంథము",
+    "2raajulu": "రాజులు రెండవ గ్రంథము",
+    "1dhinavrutthaanthamu": "దినవృత్తాంతములు మొదటి గ్రంథము",
+    "2dhinavrutthaanthamu": "దినవృత్తాంతములు రెండవ గ్రంథము",
+    "ezra": "ఎజ్రా",
+    "nehemiya": "నెహెమ్యా",
+    "esther": "ఎస్తేరు",
+    "yobu": "యోబు గ్రంథము",
+    "keerthanalu": "కీర్తనల గ్రంథము",
+    "saamethalu": "సామెతలు",
+    "prasangi": "ప్రసంగి",
+    "paramageethamu": "పరమగీతము",
+    "yeshaaya": "యెషయా గ్రంథము",
+    "yirimiya": "యిర్మీయా",
+    "vilaapavaakyamulu": "విలాపవాక్యములు",
+    "yehezkiel": "యెహెజ్కేలు",
+    "daniyel": "దానియేలు",
+    "hosheya": "హొషేయ",
+    "yovelu": "యోవేలు",
+    "aamosu": "ఆమోసు",
+    "obadhya": "ఓబద్యా",
+    "yonah": "యోనా",
+    "meeka": "మీకా",
+    "nahoomu": "నహూము",
+    "habakkukku": "హబక్కూకు",
+    "jepaniya": "జెఫన్యా",
+    "haggayi": "హగ్గయి",
+    "jekarya": "జెకర్యా",
+    "malaaki": "మలాకీ",
+    "matthayi": "మత్తయి సువార్త",
+    "marku": "మార్కు సువార్త",
+    "lukka": "లూకా సువార్త",
+    "yohanu": "యోహాను సువార్త",
+    "apostolula": "అపొస్తలుల కార్యములు",
+    "romiyulaku": "రోమీయులకు",
+    "1korinthiyulaku": "1 కొరింథీయులకు",
+    "2korinthiyulaku": "2 కొరింథీయులకు",
+    "galathiyulaku": "గలతీయులకు",
+    "efesiyulaku": "ఎఫెసీయులకు",
+    "philippiyulaku": "ఫిలిప్పీయులకు",
+    "kolossayulaku": "కొలొస్సయులకు",
+    "1thessalonika": "1 థెస్సలొనీకయులకు",
+    "2thessalonika": "2 థెస్సలొనీకయులకు",
+    "1thimothi": "1 తిమోతికి",
+    "2thimothi": "2 తిమోతికి",
+    "theethu": "తీతుకు",
+    "philemon": "ఫిలేమోనుకు",
+    "hebreeyulaku": "హెబ్రీయులకు",
+    "yaakobu": "యాకోబు",
+    "1pethuru": "1 పేతురు",
+    "2pethuru": "2 పేతురు",
+    "1yohanu": "1 యోహాను",
+    "2yohanu": "2 యోహాను",
+    "3yohanu": "3 యోహాను",
+    "yoodha": "యూదా",
+    "prakatana": "ప్రకటన గ్రంథము"
+  };
+  
+
   selectedLanguage = { label: 'English', value: 'English' };
   bookName = '';
   chapterNumber: number = 1;
@@ -195,20 +380,39 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
 
   initializeBookOptions() {
-    // const chapterNames = this.selectedLanguage['value'] === 'Tamil'
-    //   ? ChapterNames.chapNamesInTamil
-    //   : ChapterNames.chapNamesInEnglish;
-    var chapterNames = []
-    if (this.selectedLanguage['value'] === 'Tamil') {
+    // Determine chapterNames based on language
+    let chapterNames: string[] = [];
+    if (this.selectedLanguage.value === 'Tamil') {
       chapterNames = ChapterNames.chapNamesInTamil;
-    } else if (this.selectedLanguage['value'] === 'Telugu') {
+    } else if (this.selectedLanguage.value === 'Telugu') {
       chapterNames = ChapterNames.chapNamesInTelugu;
-    }else {
+    } else {
       chapterNames = ChapterNames.chapNamesInEnglish;
     }
-    this.bookOptions = chapterNames.map(book => ({ label: book }));
+  
+    // Build bookOptions with an extra property for filtering
+    this.bookOptions = chapterNames.map(book => {
+      let searchText = book.toLowerCase();
+      if (this.selectedLanguage.value === 'Tamil') {
+        // Look up matching English key from the transliteration map
+        for (const key in this.tamilTransliterationMap) {
+          if (this.tamilTransliterationMap[key] === book) {
+            searchText = key.toLowerCase();
+            break;
+          }
+        }
+      } else if (this.selectedLanguage.value === 'Telugu') {
+        for (const key in this.teluguTransliterationMap) {
+          if (this.teluguTransliterationMap[key] === book) {
+            searchText = key.toLowerCase();
+            break;
+          }
+        }
+      }
+      return { label: book, searchText }; 
+    });
   }
-
+  
   onBookNameChange(event: any) {
     this.bookName = event.value ? event.value.label : '';
   }

@@ -27,14 +27,26 @@
 
 <!-- Verse Search Form -->
 <div class="verse-form p-d-flex p-ai-center p-jc-start p-p-2">
-  <p-dropdown
+  <!-- <p-dropdown
     [options]="bookOptions"
     [(ngModel)]="bookName"
     placeholder="Select or Enter Book Name"
     optionLabel="label"
     [editable]="true"
     (onChange)="onBookNameChange($event)">
-  </p-dropdown>
+  </p-dropdown> -->
+
+  <p-dropdown 
+  [options]="bookOptions"
+  [(ngModel)]="bookName"
+  placeholder="Select or Enter Book Name"
+  optionLabel="label"
+  [filter]="true"
+  filterBy="label,searchText"
+  [editable]="true"
+  (onChange)="onBookNameChange($event)">
+</p-dropdown>
+
 
   <p-inputNumber
     #chapterInput
