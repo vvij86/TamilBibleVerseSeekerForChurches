@@ -517,6 +517,21 @@ export class AppComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  copyHistoryItem(item: HistoryItem, event?: Event) {
+    event?.stopPropagation();
+    const text = `${item.book} ${item.chapter}:${item.verse}`;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+  }
+
   requestFullscreen() {
     if (this.fullscreenContainer && this.fullscreenContainer.nativeElement.requestFullscreen) {
       this.fullscreenContainer.nativeElement.requestFullscreen();

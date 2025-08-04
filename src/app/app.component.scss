@@ -55,6 +55,25 @@
       flex-shrink: 0;
     }
   }
+
+  .history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    span {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    button {
+      flex-shrink: 0;
+      margin-left: 0.25rem;
+    }
+  }
+
+:host ::ng-deep .history-listbox .p-listbox {
+  width: 100% !important;
+}
   
   /* Override default listbox container height */
   :host ::ng-deep .p-listbox-list-container {
