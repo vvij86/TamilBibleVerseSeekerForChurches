@@ -139,13 +139,25 @@
     <div [ngStyle]="{'display': 'flex', 'flex-direction': 'column', 'height': '100%', 'width': '100%'}">
       <h3 style="margin: 3px;">History</h3>
       <div [ngStyle]="{'flex': '1', 'display': 'flex', 'flex-direction': 'row', 'overflow-x': 'auto'}">
-        <p-listbox 
+        <p-listbox
           [options]="historyOptions"
           [ngStyle]="{'flex': '1'}"
-          optionLabel="label" 
+          optionLabel="label"
           class="custom-listbox"
           (onChange)="onHistorySelect($event)">
-        </p-listbox>        
+          <ng-template let-item pTemplate="item">
+            <div class="history-item">
+              <span>{{ item.label }}</span>
+              <button
+                pButton
+                type="button"
+                icon="pi pi-copy"
+                class="p-button-text p-button-rounded p-button-sm"
+                (click)="copyHistoryItem(item, $event)">
+              </button>
+            </div>
+          </ng-template>
+        </p-listbox>
       </div>
     </div>
   </ng-template>

@@ -55,6 +55,12 @@
       flex-shrink: 0;
     }
   }
+
+  .history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   
   /* Override default listbox container height */
   :host ::ng-deep .p-listbox-list-container {
